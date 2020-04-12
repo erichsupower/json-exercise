@@ -2,12 +2,10 @@ var header = document.querySelector('header');
 var section = document.querySelector('section');
 
 var requestURL = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWB-E3A1078B-3C53-44E9-BF80-E28DCFBB65FB&locationName=%E6%96%B0%E5%8C%97%E5%B8%82';
-
 var request = new XMLHttpRequest();
 request.open('get', requestURL);
 request.responseType = 'json';
 request.send();
-
 request.onload = function () {
     var dataCWB = request.response;
     populateHeader(dataCWB);
@@ -38,7 +36,7 @@ function showMeteorological(jsonObj) {
 
     for (let i = 0; i < elementWx.time.length; i++) {
 
-        // 創建 html 元素
+        // Step1：創建 html 元素
         var cardBody = document.createElement('div');
         var card = document.createElement('div');
         var time1 = document.createElement('time');
@@ -46,13 +44,13 @@ function showMeteorological(jsonObj) {
         var p1 = document.createElement('p');
         var span1 = document.createElement('span');
 
-        // 元素中加入資料內容
+        // Step2：元素中加入資料內容
         time1.textContent = elementWx.time[i].startTime;
         time2.textContent = elementWx.time[i].endTime;
         p1.textContent = elementWx.time[i].parameter.parameterName;
         span1.textContent = elementWx.time[i].parameter.parameterValue;
 
-        //將元素加至網頁
+        // Step3：將元素加至網頁
         cardBody.appendChild(time1);
         cardBody.appendChild(time2);
         cardBody.appendChild(p1);
@@ -61,7 +59,7 @@ function showMeteorological(jsonObj) {
         card.appendChild(cardBody);
         myArticle.appendChild(card);
 
-        //加入 class name
+        // Step4：加入 class name
         cardBody.classList.add("card-body");
         card.classList.add("card");
 
@@ -69,7 +67,7 @@ function showMeteorological(jsonObj) {
 
     for (let i = 0; i < elementPoP.time.length; i++) {
 
-        // 創建 html 元素
+        // Step1：創建 html 元素
         var cardBody = document.createElement('div');
         var card = document.createElement('div');
         var time1 = document.createElement('time');
@@ -77,13 +75,13 @@ function showMeteorological(jsonObj) {
         var p1 = document.createElement('p');
         var span1 = document.createElement('span');
 
-        // 元素中加入資料內容
+        // Step2：元素中加入資料內容
         time1.textContent = elementPoP.time[i].startTime;
         time2.textContent = elementPoP.time[i].endTime;
         p1.textContent = elementPoP.time[i].parameter.parameterName;
         span1.textContent = elementPoP.time[i].parameter.parameterValue;
 
-        //將元素加至網頁
+        // Step3：將元素加至網頁
         cardBody.appendChild(time1);
         cardBody.appendChild(time2);
         cardBody.appendChild(p1);
@@ -92,7 +90,7 @@ function showMeteorological(jsonObj) {
         card.appendChild(cardBody);
         myArticle.appendChild(card);
 
-        //加入 class name
+        // Step4：加入 class name
         cardBody.classList.add("card-body");
         card.classList.add("card");
 
