@@ -1,0 +1,12 @@
+.card {
+    width: 18rem;
+    height: 12rem;
+    float: left;
+}
+.card time {
+    display: block;
+    font-size: .8em;
+}
+.card p {
+    font-size: 1.9em;
+}
