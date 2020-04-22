@@ -15,6 +15,7 @@ var getLocationName = '臺北市';
         var dataCWB = request.response;
         showTitle(dataCWB);
         showWeather(dataCWB);
+        setTime(dataCWB);
     }
 })();
 
@@ -109,5 +110,26 @@ showWeather = (dataCWB) => {
             icon.setAttribute('src', './images/weather-8.svg');
     }
 
+}
 
+setTime = (dataCWB) => {
+
+    var time = document.querySelector('.time');
+    var date = document.querySelector('.date');
+
+    var records = dataCWB.records;
+    var location = records.location[0];
+
+    var getTimeInfo = location.weatherElement[0].time[0];
+
+    var startTimeArray = getTimeInfo.startTime.split(' ');
+    var startTimeDate = startTimeArray[0].split('-');
+    var startTimeTime = startTimeArray[1].split(':');
+
+    var endTimeArray = getTimeInfo.endTime.split(' ');
+    var endTimeDate = endTimeArray[0].split('-');
+    var endTimeTime = endTimeArray[1].split(':');
+
+    date.textContent = startTimeDate[1] + '.' +startTimeDate[2] + ' ' + startTimeTime[0] + ':' + startTimeTime[1];
+    date.textContent += ' - ' + endTimeDate[1]  + '.' + endTimeDate[2] + ' ' + endTimeTime[0] + ':' + endTimeTime[1];
 }
