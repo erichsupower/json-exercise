@@ -1,8 +1,10 @@
-var authorization = 'CWB-E3A1078B-3C53-44E9-BF80-E28DCFBB65FB';
-var requestURL = '';
 var getLocationName = '臺北市';
+var requestURL = '';
 
 (request = () => {
+
+    const authorization = 'CWB-E3A1078B-3C53-44E9-BF80-E28DCFBB65FB';
+
     getLocationName = document.querySelector('#locationName').value;
     requestURL = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=' + authorization + '&locationName=' + getLocationName;
 
@@ -10,21 +12,19 @@ var getLocationName = '臺北市';
     request.open('get', requestURL);
     request.responseType = 'json';
     request.send();
-
     request.onload = function (dataCWB) {
         var dataCWB = request.response;
         showTitle(dataCWB);
         showWeather(dataCWB);
         setTime(dataCWB);
     }
-})();
 
-var btnSend = document.querySelector('#send');
-btnSend.addEventListener('click', request);
+})();
 
 showTitle = (dataCWB) => {
     var title = document.querySelector('.title');
     title.textContent = dataCWB.records.location[0].locationName;
+    
 }
 
 showWeather = (dataCWB) => {
@@ -130,6 +130,10 @@ setTime = (dataCWB) => {
     var endTimeDate = endTimeArray[0].split('-');
     var endTimeTime = endTimeArray[1].split(':');
 
-    date.textContent = startTimeDate[1] + '.' +startTimeDate[2] + ' ' + startTimeTime[0] + ':' + startTimeTime[1];
-    date.textContent += ' - ' + endTimeDate[1]  + '.' + endTimeDate[2] + ' ' + endTimeTime[0] + ':' + endTimeTime[1];
+    date.textContent = startTimeDate[1] + '.' + startTimeDate[2] + ' ' + startTimeTime[0] + ':' + startTimeTime[1];
+    date.textContent += ' - ' + endTimeDate[1] + '.' + endTimeDate[2] + ' ' + endTimeTime[0] + ':' + endTimeTime[1];
 }
+
+var btnSend = document.querySelector('#send');
+
+btnSend.addEventListener('click', request);
