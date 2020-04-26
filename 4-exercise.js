@@ -14,35 +14,44 @@
     request.send();
     request.onload = function () {
         var dataCWB = request.response;
-
         saveData(dataCWB);
         setSelectItem(dataCWB);
-
     }
 
 })();
 
+// 每3秒執行 request()
+// var intervalID = setInterval(request, 3000);
+
+// 儲存 API 資料至 localStorage
 saveData = (dataCWB) => {
     var localDataCWB = JSON.stringify(dataCWB);
     localStorage.setItem("dataCWB", localDataCWB);
 }
 
+// 讀取 localStorage 資料，並轉成 json 格式
 getData = () => {
     var localData = JSON.parse(localStorage.getItem("dataCWB"));
     return localData;
 }
 
-setSelectItem = () => {
+// 設定下拉選單的區域內容
+setSelectItem = (num) => {
     var dataJSON = getData();
     var locationItem = dataJSON.records.location;
-
+    
     var selectElement = document.querySelector('#locationName');
+
+    // 從#locationName元素中移除所有子元素
+    while (selectElement.firstChild) {
+        selectElement.removeChild(selectElement.firstChild);
+    }
 
     for (let i = 0; i < locationItem.length; i++) {
         const optionElement = document.createElement('option');
         optionElement.textContent = locationItem[i].locationName;
         selectElement.appendChild(optionElement);
-    }
+    }   
 }
 
 setLocationNum = (dataJSON) => {
@@ -161,7 +170,10 @@ update = () => {
 
     showTitle(dataJSON, num);
     showWeather(dataJSON, num);
+    setSelectItem(num);
 }
 
 var send = document.querySelector('#send');
 send.addEventListener('click', update);
+
+update();
